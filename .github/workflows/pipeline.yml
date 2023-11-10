@@ -17,10 +17,16 @@ jobs:
         jekyll/builder:latest /bin/bash -c "chmod -R 777 /srv/jekyll && jekyll build --future"
   cd_pipeline:
     needs: [ci_pipline]
+    permissions:
+      pages: write      
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
     - name: Print my name
       run: echo "Liubchenko Denys"
     - name: Deploy page
-      uses: actions/deploy-pages@v2  
-    
+      id: deployment
+      uses: actions/deploy-pages@v2 
