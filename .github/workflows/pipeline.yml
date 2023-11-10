@@ -15,3 +15,12 @@ jobs:
         docker run \
         -v ${{ github.workspace }}:/srv/jekyll -v ${{ github.workspace }}/_site:/srv/jekyll/_site \
         jekyll/builder:latest /bin/bash -c "chmod -R 777 /srv/jekyll && jekyll build --future"
+  cd_pipeline:
+    needs: [ci_pipline]
+    runs-on: ubuntu-latest
+    steps:
+    - name: Print my name
+      run: echo "Liubchenko Denys"
+    - name: Deploy page
+      uses: actions/deploy-pages@v2  
+    
